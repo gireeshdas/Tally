@@ -94,7 +94,7 @@ def logout(request):
         return redirect('/')
 
 def register(request):
-    return render(request, 'Register.html')
+    return render(request,'Register.html')
 
 def base(request):
     if 't_id' in request.session:
