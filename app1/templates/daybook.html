@@ -669,9 +669,6 @@
                                         <li><a href="list_receipt_voucher"><i class="bx bx-right-arrow-alt"></i>Receipt</a></li>
                                         <li><a href="{% url 'list_crd_voucher'%}"><i class="bx bx-right-arrow-alt"></i>Credit Note</a></li>
                                         <li><a href="{% url 'list_deb_voucher'%}"><i class="bx bx-right-arrow-alt"></i>Debit Note</a></li>
-                                        <li><a href=""><i class="bx bx-right-arrow-alt"></i>Contra</a></li>
-                                        <li><a href=""><i class="bx bx-right-arrow-alt"></i>Journal</a></li>
-                                        <li><a href=""><i class="bx bx-right-arrow-alt"></i>Sales Voucher</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -877,52 +874,21 @@
 
                     {% block body %}
 
-                    <div class="row container-fluid p-3 mx-0">
-                        <div class="col-sm-3 m-0 p-0"></div>
-                        <div class="col-sm-6 m-0 p-0" style=" background-color:rgba(0,0,0,0.2);">
-                            <!-- <a href="javascript:history.go(-1);" class="close">+</a> -->
+                    <div class="">
+                        <div class=""></div>
+                        <div class="" style=" background-color:rgba(0,0,0,0.2);">
+                         
 
-                            <div class="bg-info text-light">Gateway of Tally</div>
+                            <div class="bg-info text-light">Daybook</div>
+                            <div>All transactions</div>
 
-                            <div hidden id="cid"></div>
-                            <div style="margin-left:18px;font-size:11px;margin-top:25px">CURRENT PERIOD</div>
-                            <div id=""></div>
-                            <a id="dateP1" style="font-weight: 900;margin-left:18px;">
-
-                            </a>&nbsp;to
-                            <a id="dateP2" style="font-weight: 900;"></a>
-                            <div style="text-align: right; margin-top:-35px;margin-right:18px;font-size:11px">CURRENT
-                                DATE</div>
-                            <div style="text-align: right;margin-top:-3px;margin-right:18px;font-weight:900"
-                                id="currentDate"></div>
-
-                            <hr>
-
-                            <div style="margin-left:18px;font-size:11px">NAME OF COMPANY</div>
-                            <div style="text-align: right; margin-top:-18px;margin-right:18px;font-size:11px">DATE OF
-                                LAST ENTRY</div>
-
-                            <!-- <h6>&nbsp;&nbsp;Date of last entry</h6> -->
-                            <hr>
-
-                            <div style="margin-bottom: 20px;">
-                                <div style="margin-left:55px;font-weight: 900; font-size:15px; text-transform: capitalize;"
-                                    id="compName">
-                                    {%for i in tally%}{{i.name}}{% endfor %}</div>
-                                <div
-                                    style="text-align:right;font-weight: 900; margin-top:-18px;font-size:12px;;margin-right:35px;">
-                                    {{latestdate | date:'d-M-Y' }} </div>
-
-
-                            </div>
-                        </div>
-                        <div class="col-sm-3  m-0 p-0"></div>
+                          
 
                     </div>
 
                 </div>
             </div>
-            <!-- end wrapper -->
+      
 
 
             <div class="modal fade" id="myModal" role="dialog" style="margin-top: 150px;">

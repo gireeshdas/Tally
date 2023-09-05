@@ -17116,3 +17116,8 @@ def paymentadvice_ledger(request,id):
   
     
     return render(request,'paymentadvice_ledger.html',context)
+
+
+
+def Daybook(request):
+    return render(request,"daybook.html")
