@@ -929,7 +929,8 @@ urlpatterns = [
     path('paymentadvice_ledger/<int:id>',views.paymentadvice_ledger,name='paymentadvice_ledger'),
 
 
-    path("Daybook",views.Daybook,name="Daybook"),
+    # path("Daybook",views.Daybook,name="Daybook"),
+    path("Daybook_all_transactions",views.Daybook_all_transactions,name="Daybook_all_transactions"),
 
     
     path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),

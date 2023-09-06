@@ -1,3 +1,10 @@
+<!-- Add this at the top of your template -->
+{% if vch %}
+    <p>Data is being retrieved from the database.</p>
+{% else %}
+    <p>No data found in the database.</p>
+{% endif %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +19,7 @@
     <!-- Reset styles -->
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
     <!-- Google Fonts Muli -->
-  
+
     <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'styles.css' %} ">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -661,14 +668,19 @@
                                 <div class="menu-title">Transactions</div>
                             </a>
                             <ul>
-                                <li><a href="{% url 'Daybook' %}"><i class="bx bx-right-arrow-alt"></i>Daybook</a></li>
+                                <li><a href="{% url 'Daybook_all_transactions' %}"><i class="bx bx-right-arrow-alt"></i>Daybook</a></li>
                                 <li>
-                                    <a href="javascript:;" class="has-arrow"><i class='bx bx-right-arrow-alt'></i>Vouchers</a>
+                                    <a href="javascript:;" class="has-arrow"><i
+                                            class='bx bx-right-arrow-alt'></i>Vouchers</a>
                                     <ul>
-                                        <li><a href="list_payment_voucher"><i class="bx bx-right-arrow-alt"></i>Payment</a></li>
-                                        <li><a href="list_receipt_voucher"><i class="bx bx-right-arrow-alt"></i>Receipt</a></li>
-                                        <li><a href="{% url 'list_crd_voucher'%}"><i class="bx bx-right-arrow-alt"></i>Credit Note</a></li>
-                                        <li><a href="{% url 'list_deb_voucher'%}"><i class="bx bx-right-arrow-alt"></i>Debit Note</a></li>
+                                        <li><a href="list_payment_voucher"><i
+                                                    class="bx bx-right-arrow-alt"></i>Payment</a></li>
+                                        <li><a href="list_receipt_voucher"><i
+                                                    class="bx bx-right-arrow-alt"></i>Receipt</a></li>
+                                        <li><a href="{% url 'list_crd_voucher'%}"><i
+                                                    class="bx bx-right-arrow-alt"></i>Credit Note</a></li>
+                                        <li><a href="{% url 'list_deb_voucher'%}"><i
+                                                    class="bx bx-right-arrow-alt"></i>Debit Note</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -876,19 +888,62 @@
 
                     <div class="">
                         <div class=""></div>
-                        <div class="" style=" background-color:rgba(0,0,0,0.2);">
-                         
+                        <div class="" style="background-color: rgba(0, 0, 0, 0.2);">
 
-                            <div class="bg-info text-light">Daybook</div>
-                            <div>All transactions</div>
+                            <div class="bg-info text-light" style="font-size: larger;">Daybook</div>
 
-                          
+                            <div style="font-size: larger;">List of all transactions</div>
 
+                            <div>
+                                <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                                    <thead>
+                                        <tr style="font-size: larger;">
+                                            <th>Particular</th>
+                                            <th>Date</th>
+                                            <th>Vch Type</th>
+                                            <th>Vch No</th>
+                                            <th>Debit Amount</th>
+                                            <th>Credit Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for v in vch %}
+                                        <tr>
+                                            {% for particular in v.payment_particulars_set.all %}
+                                            <td>{{ particular.particular }}</td>
+                                            {% endfor %}
+                                            <td>{{ v.date }}</td>
+                                            <td>{{ v.voucher.voucher_name }}</td>
+                                            <td>{{ v.pid }}</td>
+                                            <td>{{ v.amount }}</td>
+                                            <td>{{ v.amount }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                        {% for receipt in receipts %}
+                                        <tr>
+                                            {% for receipt_particular in receipt.receipt_particulars_set.all %}
+                                            <td>{{ receipt_particular.particular }}</td>
+                                            {% endfor %}
+                                            <td>{{ receipt.date }}</td>
+                                            <td>{{ receipt.voucher.voucher_name }}</td>
+                                            <td>{{ receipt.rid }}</td>
+                                            <td>{{ receipt.amount }}</td>
+                                            <td>{{ receipt.amount }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+
+                        </div>
                     </div>
+
 
                 </div>
             </div>
-      
+
 
 
             <div class="modal fade" id="myModal" role="dialog" style="margin-top: 150px;">

@@ -17110,14 +17110,36 @@ def paymentadvice_ledger(request,id):
         
         
         
-     }  
-
-
-  
-    
+     }    
     return render(request,'paymentadvice_ledger.html',context)
 
 
 
-def Daybook(request):
-    return render(request,"daybook.html")
+
+    # vouchers---
+    # payment voucher
+    # receipt voucher
+    # credit_note
+    # debit_note
+
+def Daybook_all_transactions(request):
+
+    # payment_voucher---lisitng all transactions with edit feature
+
+    vch= payment_voucher.objects.all()
+    particulars = payment_particulars.objects.all()
+
+    # receipt_voucher
+    receipts = receipt_voucher.objects.all()
+    receipts_particular=receipt_particulars.objects.all()
+
+    context = {'vch': vch, 'particulars': particulars ,
+                'receipts':receipts, 
+                'receipts_particular':receipts_particular}
+    
+    return render(request,'daybook.html',context)
+
+
+# def Edit_daybook(request):
+#     if request.method=="POST":
+
