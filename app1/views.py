@@ -10,7 +10,7 @@ from calendar import month
 from urllib import response
 from datetime import datetime, timedelta
 from django.contrib import messages
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from .models import *
 from errno import ETIME
 from datetime import date
@@ -17115,7 +17115,7 @@ def paymentadvice_ledger(request,id):
 
 
 
-
+# Gireesh Das--- Daybook.
     # vouchers---
     # payment voucher
     # receipt voucher
@@ -17123,7 +17123,6 @@ def paymentadvice_ledger(request,id):
     # debit_note
 
 def Daybook_all_transactions(request):
-
     # payment_voucher---lisitng all transactions with edit feature
 
     vch= payment_voucher.objects.all()
@@ -17133,13 +17132,80 @@ def Daybook_all_transactions(request):
     receipts = receipt_voucher.objects.all()
     receipts_particular=receipt_particulars.objects.all()
 
+
     context = {'vch': vch, 'particulars': particulars ,
                 'receipts':receipts, 
-                'receipts_particular':receipts_particular}
+                'receipts_particular':receipts_particular
+                }
     
     return render(request,'daybook.html',context)
 
 
-# def Edit_daybook(request):
-#     if request.method=="POST":
+# Daybook_edit_section
 
+def Daybook_edit(request):  
+    return render(request,"daybook_edit.html")
+
+
+
+# def edit_payment_voucher(request, voucher_id):
+#     if 't_id' in request.session:
+#         if request.session.has_key('t_id'):
+#             t_id = request.session['t_id']
+#         else:
+#             return redirect('/')
+#         comp = Companies.objects.get(id=t_id)
+#         try:
+#             pay_vouch = payment_voucher.objects.get(id=voucher_id, company=comp)
+#         except payment_voucher.DoesNotExist:
+#             return redirect('/list_payment_voucher') 
+
+#         vouch = pay_vouch.voucher
+
+#         if request.method == 'POST':
+#             acc = request.POST.get('acc')
+#             accnt = acc.split()
+#             date1 = request.POST.get('date1')
+#             amount = request.POST.get('total')
+#             nrt = request.POST.get('narrate')
+
+#             particulars_id = request.POST.getlist("opt[]")
+#             amounts = request.POST.getlist("amnt[]")
+
+#             pay_vouch.account = accnt[1]
+#             pay_vouch.date = date1
+#             pay_vouch.amount = amount
+#             pay_vouch.narration = nrt
+#             pay_vouch.save()
+#             pay_vouch.particulars.clear()
+
+#             particulars = []
+#             for i in particulars_id:
+#                 id = tally_ledger.objects.get(id=i)
+#                 particulars.append(id.name)
+
+#             if len(particulars_id) == len(amounts) and particulars_id and amounts:
+#                 for i in range(len(particulars_id)):
+#                     payment_particulars.objects.create(
+#                         particular=particulars[i],
+#                         particular_id=particulars_id[i],
+#                         amount=amounts[i],
+#                         pay_voucher=pay_vouch
+#                     )
+
+#             return redirect('/list_payment_voucher') 
+
+       
+#         voucher_id=payment_voucher.objects.get(id=voucher_id)
+#         context = {
+#             'company': comp,
+#             'vouch': vouch,
+#             'date1': pay_vouch.date,
+#             'name': vouch.voucher_name,
+#             'ledg': tally_ledger.objects.filter(company=comp, under__in=['Bank_Accounts', 'Cash_in_Hand']),
+#             'ledg_all': tally_ledger.objects.filter(company=comp),
+#             'v': pay_vouch.pid,
+#             'pay_vouch': pay_vouch,
+#             'voucher_id': voucher_id, 
+#         }
+#         return render(request, 'edit_payment_voucher.html', context)

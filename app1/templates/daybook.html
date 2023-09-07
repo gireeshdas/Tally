@@ -891,11 +891,13 @@
                         <div class="" style="background-color: rgba(0, 0, 0, 0.2);">
 
                             <div class="bg-info text-light" style="font-size: larger;">Daybook</div>
+                            <div class="col-4">{{company.name}}</div>
+
 
                             <div style="font-size: larger;">List of all transactions</div>
 
                             <div>
-                                <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                                <!-- <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                                     <thead>
                                         <tr style="font-size: larger;">
                                             <th>Particular</th>
@@ -933,7 +935,69 @@
                                         </tr>
                                         {% endfor %}
                                     </tbody>
+                                </table> -->
+                                <style>
+                                    /* Define a CSS class for the hover effect */
+                                    .table-row:hover {
+                                        background-color: rgb(255, 128, 0);
+                                    }
+                                </style>
+                                
+                                <script>
+                                    // JavaScript function to toggle the selected row class
+                                    function toggleRowSelection(row) {
+                                        // Remove the selected class from all rows
+                                        var rows = document.querySelectorAll('.table-row');
+                                        rows.forEach(function (element) {
+                                            element.classList.remove('selected-row');
+                                        });
+                                
+                                        // Add the selected class to the clicked row
+                                        row.classList.add('selected-row');
+                                    }
+                                </script>
+                                
+                                <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                                    <thead>
+                                        <tr style="font-size: larger;">
+                                            <th>Particular</th>
+                                            <th>Date</th>
+                                            <th>Vch Type</th>
+                                            <th>Vch No</th>
+                                            <th>Debit Amount</th>
+                                            <th>Credit Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for v in vch %}
+                                        <tr class="table-row" onclick="toggleRowSelection(this); window.location.href='{% url 'Daybook_edit' %}'" style="cursor: pointer;">
+                                            {% for particular in v.payment_particulars_set.all %}
+                                            <td>{{ particular.particular }}</td>
+                                            {% endfor %}
+                                            <td>{{ v.date }}</td>
+                                            <td>{{ v.voucher.voucher_name }}</td>
+                                            <td>{{ v.pid }}</td>
+                                            <td>{{ v.amount }}</td>
+                                            <td>{{ v.amount }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                
+                                        {% for receipt in receipts %}
+                                        <tr class="table-row" onclick="toggleRowSelection(this); window.location.href=''" style="cursor: pointer;">
+                                            {% for receipt_particular in receipt.receipt_particulars_set.all %}
+                                            <td>{{ receipt_particular.particular }}</td>
+                                            {% endfor %}
+                                            <td>{{ receipt.date }}</td>
+                                            <td>{{ receipt.voucher.voucher_name }}</td>
+                                            <td>{{ receipt.rid }}</td>
+                                            <td>{{ receipt.amount }}</td>
+                                            <td>{{ receipt.amount }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
                                 </table>
+                                
+                                
                                 
                             </div>
 
