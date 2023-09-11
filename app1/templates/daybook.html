@@ -970,7 +970,7 @@
                                     </thead>
                                     <tbody>
                                         {% for v in vch %}
-                                        <tr class="table-row" onclick="toggleRowSelection(this); window.location.href='{% url 'daybook_edit' v.id %}'" style="cursor: pointer;">
+                                        <tr class="table-row" onclick="toggleRowSelection(this); window.location.href='{% url 'daybook_edit' v.id  %}'" style="cursor: pointer;">
                                             {% for particular in v.payment_particulars_set.all %}
                                                 <td>{{ particular.particular }}</td>
                                             {% endfor %}

@@ -156,14 +156,16 @@
                 style="background-color:  rgb(124, 186, 224);color:rgb(0, 0, 0);width: 100%;margin: auto;">
                 <div class="col" style="font-weight:600 ;text-transform:capitalize;">Accounting Voucher Alteration
                     (secondary)</div>
-                <div class="col-4" style="font-weight:600 ;text-transform:capitalize;">{{company.name}}</div>
+                    {% for c in company %}
+                <div class="col-4" style="font-weight:600 ;text-transform:capitalize;">{{c.name}}</div>
+                {% endfor %}
 
                 <div class='col-2'><a href="javascript:history.go(-1);">
                         <span class="pull-right clickable" data-effect="fadeOut"><i class="fa fa-times"
                                 style="color: black;"></i></span></a>
                 </div>
             </div>
-            <form action="create_payment_voucher" id="frmvouch" method="POST">
+            <form action="edit_payment_voucher" id="frmvouch" method="POST">
                 {% csrf_token %}
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm border-dark"
@@ -172,11 +174,13 @@
                             <th colspan="18"
                                 style="border-bottom: solid 0.5px rgba(205, 196, 196, 0.2) ; border-right:none ;">
                                 <div>
+                                   
                                     <label
                                         style="font-weight:600 ;text-transform:capitalize; font-size: 18px;background-color: rgb(17, 54, 86);"
                                         id='vouchtype' name='vouchtype'
-                                        value='{{name}}'>&nbsp;&nbsp;&nbsp;&nbsp;{{name}}
+                                        value='{{voucher_name.name}}'>&nbsp;&nbsp;&nbsp;&nbsp;{{name}}
                                         &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                   
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="hidden" value="{{name}}" name="type">
                                     <label style="font-weight: 400; color: #000;">No.&nbsp;&nbsp;</label>&nbsp;&nbsp;

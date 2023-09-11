@@ -932,7 +932,7 @@ urlpatterns = [
     path("Daybook_all_transactions",views.Daybook_all_transactions,name="Daybook_all_transactions"),
     path('daybook/edit/<int:voucher_id>/', views.Daybook_edit, name='daybook_edit'),
      path('daybook_edit_1/<int:voucher_id>/', views.Daybook_edit_1, name='daybook_edit_1'),
-    path('edit_payment_voucher/<int:voucher_id>/',views.edit_payment_voucher, name='edit_payment_voucher'),
+    # path('edit_payment_voucher/<int:voucher_id>/',views.edit_payment_voucher, name='edit_payment_voucher'),
    
  
     
