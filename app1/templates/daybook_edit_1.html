@@ -165,7 +165,7 @@
                                 style="color: black;"></i></span></a>
                 </div>
             </div>
-            <form action="edit_payment_voucher" id="frmvouch" method="POST">
+            <form action="" id="frmvouch" method="POST">
                 {% csrf_token %}
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm border-dark"
@@ -174,30 +174,32 @@
                             <th colspan="18"
                                 style="border-bottom: solid 0.5px rgba(205, 196, 196, 0.2) ; border-right:none ;">
                                 <div>
-                                   
+                                   {% for receipt in voucher_name %}
                                     <label
                                         style="font-weight:600 ;text-transform:capitalize; font-size: 18px;background-color: rgb(17, 54, 86);"
                                         id='vouchtype' name='vouchtype'
-                                        value='{{voucher_name.name}}'>&nbsp;&nbsp;&nbsp;&nbsp;{{name}}
+                                        value='{{name}}'>&nbsp;&nbsp;&nbsp;&nbsp;{{ receipt.voucher.voucher_name }}
                                         &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        {% endfor %}
                                    
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="hidden" value="{{name}}" name="type">
                                     <label style="font-weight: 400; color: #000;">No.&nbsp;&nbsp;</label>&nbsp;&nbsp;
-                                    {% if vouch.voucherNumber == 'Automatic' %}
-                                    <label style="font-weight: 400; color: #000;" name='idlbl'>{{v}}</label>
-                                    <input type="hidden" value="{{v}}" name="idlbl" id='idlbl'>
-                                    {% elif vouch.voucherNumber == 'Manual'%}
-                                    <input type="number" id='idlbl'
+                                 {% for v in voucher_no %}
+                                    <label style="font-weight: 400; color: #000;" name='idlbl'>{{v.rid}}</label>
+                                    <!-- <input type="hidden" value="{{v}}" name="idlbl" id='idlbl'> -->
+                                    {% endfor %}
+                                  
+                                    <!-- <input type="number" id='idlbl'
                                         style=" color:#000;background-color: rgb(255, 229, 183);height: 20px;"
                                         name='idlbl'>
-                                    {% elif vouch.voucherNumber == 'None' %}
+                               
                                     <input type="hidden" value="" name="idlbl" id='idlbl'>
                                     <label name='idlbl'></label>
-                                    {% elif vouch.voucherNumber == 'Automatic(Manual Override)' %}
+                          
                                     <input type="number" id='idlbl'
                                         style="background-color: rgb(255, 229, 183);height: 20px;">
-                                    {% endif %}
+                                 -->
 
                                 </div>
 
