@@ -17170,8 +17170,6 @@ def Daybook_edit(request,voucher_id):
                                                           "company":company    })                                                  
                                                        
                                           
-
-
 # receipt_voucher_editpage
 def Daybook_edit_1(request,voucher_id):
     voucher_no=receipt_voucher.objects.filter(id=voucher_id)
@@ -17187,55 +17185,110 @@ def Daybook_edit_1(request,voucher_id):
 
 
 
-# def edit_payment_voucher(request, voucher_id):
-#     if 't_id' in request.session:
-#         if request.session.has_key('t_id'):
-#             t_id = request.session['t_id']
-#         else:
-#             return redirect('/')
+def edit_payment_voucher(request, voucher_id):
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+        else:
+            return redirect('/')
 
-#         comp = Companies.objects.get(id=t_id)
+        comp = Companies.objects.get(id=t_id)
 
-#         name = request.POST['type']
+        name = request.POST['type']
 
-#         vouch = Voucher.objects.filter(voucher_type='Payment', company=comp).get(voucher_name=name)
+        vouch = Voucher.objects.filter(voucher_type='Payment', company=comp).get(voucher_name=name)
 
-#         if request.method == 'POST':
-#             pid = request.POST.get('idlbl')
-#             acc = request.POST.get('acc')
-#             accnt = acc.split()
-#             date1 = request.POST.get('date1')
-#             amount = request.POST.get('total')
-#             nrt = request.POST.get('narrate')
+        if request.method == 'POST':
+            pid = request.POST.get('idlbl')
+            acc = request.POST.get('acc')
+            accnt = acc.split()
+            date1 = request.POST.get('date1')
+            amount = request.POST.get('total')
+            nrt = request.POST.get('narrate')
 
-#             particulars_id = request.POST.getlist("opt[]")
-#             amounts = request.POST.getlist("amnt[]")
+            particulars_id = request.POST.getlist("opt[]")
+            amounts = request.POST.getlist("amnt[]")
 
-#             # Update the existing payment voucher
-#             payment_voucher_obj = payment_voucher.objects.get(id=voucher_id)
-#             payment_voucher_obj.pid = pid
-#             payment_voucher_obj.account = accnt[1]
-#             payment_voucher_obj.date = date1
-#             payment_voucher_obj.amount = amount
-#             payment_voucher_obj.narration = nrt
-#             payment_voucher_obj.save()
+            # Update the existing payment voucher
+            payment_voucher_obj = payment_voucher.objects.get(id=voucher_id)
+            payment_voucher_obj.pid = pid
+            payment_voucher_obj.account = accnt[1]
+            payment_voucher_obj.date = date1
+            payment_voucher_obj.amount = amount
+            payment_voucher_obj.narration = nrt
+            payment_voucher_obj.save()
 
-#             # Update payment particulars
-#             payment_particulars.objects.filter(pay_voucher=payment_voucher_obj).delete()
-#             particulars = []
-#             for i in particulars_id:
-#                 id = tally_ledger.objects.get(id=i)
-#                 particulars.append(id.name)
+            # Update payment particulars
+            payment_particulars.objects.filter(pay_voucher=payment_voucher_obj).delete()
+            particulars = []
+            for i in particulars_id:
+                id = tally_ledger.objects.get(id=i)
+                particulars.append(id.name)
 
-#             if len(particulars_id) == len(amounts) and particulars_id and amounts:
-#                 particular = zip(particulars, particulars_id, amounts)
-#                 mapped = list(particular)
-#                 for m in mapped:
-#                     payment_particulars.objects.create(particular=m[0], particular_id=m[1], amount=m[2],
-#                                                         pay_voucher=payment_voucher_obj)
+            if len(particulars_id) == len(amounts) and particulars_id and amounts:
+                particular = zip(particulars, particulars_id, amounts)
+                mapped = list(particular)
+                for m in mapped:
+                    payment_particulars.objects.create(particular=m[0], particular_id=m[1], amount=m[2],
+                                                        pay_voucher=payment_voucher_obj)
 
-#             return redirect('/list_payment_voucher')
+            return redirect('Daybook_all_transactions')
 
-#         return render(request, 'daybook_edit.html', {'voucher_id': voucher_id})
-#     else:
-#         return redirect('/')
+        return render(request, 'daybook_edit.html', {'voucher_id': voucher_id})
+    else:
+        return redirect('Daybook_all_transactions')
+    
+
+# edit_receipt_voucher
+def edit_receipt_voucher(request, voucher_id):
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+        else:
+            return redirect('/')
+
+        comp = Companies.objects.get(id=t_id)
+
+        name = request.POST['type']
+
+        vouch = Voucher.objects.filter(voucher_type='Payment', company=comp).get(voucher_name=name)
+
+        if request.method == 'POST':
+            rid = request.POST.get('idlbl')
+            acc = request.POST.get('acc')
+            accnt = acc.split()
+            date1 = request.POST.get('date1')
+            amount = request.POST.get('total')
+            nrt = request.POST.get('narrate')
+
+            particulars_id = request.POST.getlist("opt[]")
+            amounts = request.POST.getlist("amnt[]")
+
+            # Update the existing receipt voucher
+            receipt_voucher_obj = payment_voucher.objects.get(id=voucher_id)
+            receipt_voucher_obj.rid = rid
+            receipt_voucher_obj.account = accnt[1]
+            receipt_voucher_obj.date = date1
+            receipt_voucher_obj.amount = amount
+            receipt_voucher_obj.narration = nrt
+            receipt_voucher_obj.save()
+
+            # Update receipt particulars
+            receipt_particulars.objects.filter(pay_voucher=receipt_voucher_obj).delete()
+            particulars = []
+            for i in particulars_id:
+                id = tally_ledger.objects.get(id=i)
+                particulars.append(id.name)
+
+            if len(particulars_id) == len(amounts) and particulars_id and amounts:
+                particular = zip(particulars, particulars_id, amounts)
+                mapped = list(particular)
+                for m in mapped:
+                    payment_particulars.objects.create(particular=m[0], particular_id=m[1], amount=m[2],
+                                                        pay_voucher=receipt_voucher_obj)
+
+            return redirect('Daybook_all_transactions')
+
+        return render(request, 'daybook_edit.html', {'voucher_id': voucher_id})
+    else:
+        return redirect('Daybook_all_transactions')
