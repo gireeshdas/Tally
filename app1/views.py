@@ -17177,13 +17177,19 @@ def Daybook_edit_1(request,voucher_id):
     voucher_name=receipt_voucher.objects.filter(id=voucher_id)
     company=Companies.objects.all()
     r_date=receipt_particulars.objects.get(id=voucher_id)
+    p_amount=payment_voucher.objects.get(id=voucher_id)
+    r_amount=payment_particulars.objects.all()
     receipt_particular=voucher.receipt_particulars_set.all()
+    narrations=payment_voucher.objects.get(id=voucher_id)
     return render(request,"daybook_edit_1.html",{'voucher' : voucher, 
                                                  'receipt_particular': receipt_particular,
                                                    "company":company,
                                                    "voucher_name": voucher_name,
                                                     "voucher_no":voucher_no ,
-                                                    "r_date":r_date})
+                                                    "r_date":r_date,
+                                                    "narrations":narrations,
+                                                    "r_amount":r_amount,
+                                                    "p_amount":p_amount})
 
 
 
