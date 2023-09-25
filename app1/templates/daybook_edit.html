@@ -268,6 +268,7 @@ Current Balance:
                     <span class="input-group">
                     <label>&nbsp;&nbsp;Current Balance :&nbsp;&nbsp;</label>
                     <label id ='curbalance'></label>
+                    
                    
                     </span>
                 </div>
@@ -299,13 +300,18 @@ Current Balance:
                                         <option class="opt" id="opt" value="Cash">&nbsp;&nbsp;Cash</option>
                                         <option class="opt" id="opt" value="Bank">&nbsp;&nbsp;Bank</option>
                                         {% for p in particulars %}
-                                        <option class="opt" id="opt" value="{{ p.particular }}">&nbsp;&nbsp;{{ p.particular }}</option>
+                                        <option class="opt" id="opt" value="">&nbsp;&nbsp;{{ p.particular }}</option>
                                         {% endfor %}
                                     </select>
                                     <br>
+                                   
                                         <label class = 'blnc1' style="color: #000;" >&nbsp;&nbsp;Cur Bal:&nbsp;&nbsp;</label>
-                                        <label class = 'blnc1' id="blnc1" class="p-0 mt-0" style="color: #000;"></label>
-                                        <label id ='onacc1' class="onacc" name = 'onacc' style="color: #000; margin-left: 25px;"></label>
+                                        <label class = 'blnc1' id="blnc1" class="p-0 mt-0" style="color: #000;">
+                                        </label>
+                                        {% for r in r_amount %}
+                                        <label id ='onacc1' class="onacc" name = 'onacc' style="color: #000; margin-left: 25px;">
+                                            <input type="text" value="{{r.amount}}"></label>
+                                        {% endfor %}
                                 </td>
                                 <td colspan="2" class="text-right mt-0" style="border: none; ">
                                     <input type="number" class = 'txt amnt' id= 'amnt1' name = 'amnt[]' oninput='calculateTotal();' onchange='showTransaction();'>
@@ -316,16 +322,13 @@ Current Balance:
                             
                     </tbody>
                     <tfoot >
-                        {% if vouch.voucherNarration == 'Yes' %}
+                  
 <td colspan="18" style="border: none; width: 400px;"> <!-- Adjust the width as needed -->
-    <label class="text-dark" style="color: #000;">Narration :</label>
+    <label class="text-dark" style="color: #000;"><b>Narration :</b></label>
     <textarea name="narrate" style="height: 30px; width: 250px; background-color: rgb(255, 229, 183); color: #000;">{{ narrations.narration }}</textarea>
 </td>
-{% else %}
-<td colspan="18" style="border: none;">
-    <textarea name="narrate" style="height: 30px; width: 250px; background-color: rgb(255, 229, 183); color: #000;"></textarea>
-</td>
-{% endif %}
+
+
 
                 
                       <td colspan="2" class="text-right" style="border: none; " >
